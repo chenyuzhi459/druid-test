@@ -7,10 +7,11 @@ import java.util.Random;
  */
 public class Test01 {
     public static void main(String[] args) {
-        Random random = new Random();
-        for(int i=0;i<100;i++) {
-            System.out.println(random.nextFloat());
-        };
+
+        for(int i=0;i<100;i++){
+            Random random = new Random(i);
+            System.out.println(random.nextInt(2) == 0? "男":"女");
+        }
     }
 
 }
