@@ -45,8 +45,21 @@ public class DataCreator implements Closeable{
 
 
         public String generateData() throws JsonProcessingException {
-              String id = Util.getMd5Sum(i+"");
-//              String sex = U
+            //id
+            String id = Util.getMd5Sum(i+"");
+            //判断的标志
+            int flag = Util.getFirstNumFromStr(id);
+            //性别
+            String sex = flag % 2 == 0? "男":"女";
+            //电话
+            String phonePre = DataConst.phonePre[flag * 10 % 30];
+            //年龄
+            int age = flag * 6 / 10 + 20;
+
+
+
+            //省份
+            String province = DataConst.province[i/34 + flag];
 
 //            return jsonMapper.writeValueAsString(maps);
             return "";

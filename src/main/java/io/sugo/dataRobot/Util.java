@@ -25,6 +25,16 @@ public class Util {
         return sb.toString();
     }
 
+    public static char getFirstNumFromStr(String str) {
+        char[] a= str.toCharArray();
+        for (int i = 0; i < str.length(); i++) {
+            if(a[i]>='0' && a[i]<='9') {
+                return a[i];
+            }
+        }
+        return '0';
+    }
+
     public static String randomString(int length) { //length表示生成字符串的长度
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < length; i++) {

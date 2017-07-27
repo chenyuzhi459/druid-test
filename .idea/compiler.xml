@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="druid-test" />
         <module name="testQueryRobot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="druid-test" target="1.5" />
       <module name="testQueryRobot" target="1.7" />
     </bytecodeTargetLevel>
   </component>
