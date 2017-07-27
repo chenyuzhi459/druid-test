@@ -9,6 +9,8 @@ import org.joda.time.DateTime;
 import java.io.Closeable;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
@@ -20,13 +22,11 @@ public class DataCreator implements Closeable{
         private static String mytopic = "testQuery";
 
         private final KafkaProducer<Integer, String> producer;
-        private static final Random random = new Random();
         private static DateTime now;
-        private static int i = 0;
 
         public DataCreator() throws IOException {
             Properties props = new Properties();
-            props.load(new FileInputStream("test-kafka.properties"));
+            props.load(new FileInputStream("kafka.properties"));
 
             mytopic = props.getProperty("topic");
             producer = new KafkaProducer<>(props);
@@ -44,25 +44,35 @@ public class DataCreator implements Closeable{
 
 
 
-        public String generateData() throws JsonProcessingException {
+        public String generateData(int i,DateTime dateTime) throws JsonProcessingException {
+            Random random = new Random(i);
             //id
             String id = Util.getMd5Sum(i+"");
-            //判断的标志
-            int flag = Util.getFirstNumFromStr(id);
             //性别
-            String sex = flag % 2 == 0? "男":"女";
-            //电话
-            String phonePre = DataConst.phonePre[flag * 10 % 30];
+            String sex = random.nextInt(2) == 0? "男":"女";
             //年龄
-            int age = flag * 6 / 10 + 20;
-
-
-
+            int age = random.nextInt(50) + 15;
             //省份
-            String province = DataConst.province[i/34 + flag];
+            String province = DataConst.province[random.nextInt(34)];
+            //时间
+            DateTime dt = dateTime.plusMillis(random.nextInt(1000 * 60 * 24));
+            //薪资
+            float salary = random.nextFloat() * 10000 + 3000;
+            //double
+            double size = random.nextDouble();
 
-//            return jsonMapper.writeValueAsString(maps);
-            return "";
+
+            Map<String,Object> map = new HashMap<>();
+
+            map.put("s|id",id);
+            map.put("s|sex",sex);
+            map.put("i|age",age);
+            map.put("s|province",province);
+            map.put("d|dt",dt.getMillis());
+            map.put("f|province",province);
+            map.put("d|dt",dt.getMillis());
+
+            return jsonMapper.writeValueAsString(map);
         }
 
 

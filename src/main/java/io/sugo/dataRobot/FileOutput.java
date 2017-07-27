@@ -14,24 +14,17 @@ import java.util.Random;
  */
 public class FileOutput {
 
-    public static DecimalFormat df = new DecimalFormat("0.00");
-    public static Random random = new Random();
 
     public static void main(String[] args) throws IOException {
-        DataCreator creator = new DataCreator();
 
         try {
-            File file2 = new File("/tmp/test/testNormal");
-            FileWriter fileWriter = new FileWriter(file2);
+            File file = new File("druid-test-data");
+            FileWriter fileWriter = new FileWriter(file);
 
             String s = "";
 
             for(int i=0;i<100;i++) {
-                if(i<99) {
-                    s += creator.generateData() + "\r\n";
-                } else{
-                    s += creator.generateData();
-                }
+                s += i +" ";
             }
 
             fileWriter.write(s);
@@ -40,25 +33,12 @@ public class FileOutput {
 
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
 
     }
 
-    public static String generateData() {
-        StringBuffer sb = new StringBuffer();
-
-        DateTime dt = new DateTime();
-
-        for(int i=0;i<100;i++) {
-            //sb.append( i + "," + dt.minusMillis(new Random().nextInt(1000 * 24 * 30)).getMillis() +"," + Util.getMd5Sum(i+"") + "\r\n"  );
-            sb.append( dt.minusMillis(new Random().nextInt(1000 * 24 * 30)).getMillis() + "," + i +"," + Util.getMd5Sum(i+"") + "\r\n"  );
-        }
-        return sb.toString();
-
-    }
 
 }
 

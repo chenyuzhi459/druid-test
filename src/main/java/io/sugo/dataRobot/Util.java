@@ -25,11 +25,17 @@ public class Util {
         return sb.toString();
     }
 
-    public static char getFirstNumFromStr(String str) {
+
+    public static char getNumFromStr(String str,int index) {
         char[] a= str.toCharArray();
+        int flag = 0;
         for (int i = 0; i < str.length(); i++) {
             if(a[i]>='0' && a[i]<='9') {
-                return a[i];
+                flag++;
+                if(flag == index) {
+                    return a[i];
+                }
+
             }
         }
         return '0';

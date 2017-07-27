@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="druid-test" target="1.5" />
+      <module name="druid-test" target="1.7" />
       <module name="testQueryRobot" target="1.7" />
     </bytecodeTargetLevel>
   </component>
