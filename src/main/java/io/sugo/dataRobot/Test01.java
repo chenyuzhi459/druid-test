@@ -1,17 +1,19 @@
 package io.sugo.dataRobot;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 /**
  * Created by qwe on 17-7-27.
  */
 public class Test01 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        for(int i=0;i<100;i++){
-            Random random = new Random(i);
-            System.out.println(random.nextInt(2) == 0? "男":"女");
-        }
+
     }
 
+    public static void println(String str){
+        System.out.println(str);
+    }
 }
