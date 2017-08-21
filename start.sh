@@ -19,7 +19,9 @@ case $startStop in
       fi
     fi
 
-    nohup java -cp ./druid-test-1.0-SNAPSHOT.jar:lib/* io.sugo.dataRobot.Robot &
+
+    nohup java -cp ./druid-test-1.0-SNAPSHOT.jar:lib/* io.sugo.testQuery.Test &
+
     nodeType_PID=$!
     echo $nodeType_PID > $pid
     echo "Started robot ($nodeType_PID)"
