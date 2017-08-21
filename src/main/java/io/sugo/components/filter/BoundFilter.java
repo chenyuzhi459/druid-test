@@ -1,11 +1,13 @@
 package io.sugo.components.filter;
 
+import io.sugo.components.filter.base.CommonFilter;
+import io.sugo.query.member.extractionFn.base.BaseExtractionFn;
+
 /**
  * Created by qwe on 17-7-28.
  */
-public class BoundFilter implements Filter {
-    private final String type = "bound";
-    private String dimension;
+public class BoundFilter extends CommonFilter {
+    private static final String FILTER_TYPE = "bound";
     private String lower;
     private String upper;
     private boolean lowerStrict;
@@ -13,16 +15,20 @@ public class BoundFilter implements Filter {
     private boolean alphaNumeric;
 
     public BoundFilter() {
-        this.dimension = "age";
-        this.lower = "40";
-        this.upper = "42";
-        this.lowerStrict = true;
-        this.upperStrict = false;
-        this.alphaNumeric = true;
+        super(FILTER_TYPE);
+    }
+
+    public BoundFilter( String dimension) {
+        super(FILTER_TYPE, dimension);
+    }
+
+    public BoundFilter( String dimension, boolean alphaNumeric) {
+        super(FILTER_TYPE, dimension);
+        this.alphaNumeric = alphaNumeric;
     }
 
     public BoundFilter(String dimension, String lower, String upper, boolean lowerStrict, boolean upperStrict, boolean alphaNumeric) {
-        this.dimension = dimension;
+        super(FILTER_TYPE, dimension);
         this.lower = lower;
         this.upper = upper;
         this.lowerStrict = lowerStrict;
@@ -30,12 +36,13 @@ public class BoundFilter implements Filter {
         this.alphaNumeric = alphaNumeric;
     }
 
-    public String getDimension() {
-        return dimension;
-    }
-
-    public void setDimension(String dimension) {
-        this.dimension = dimension;
+    public BoundFilter( String dimension, String lower, String upper, boolean lowerStrict, boolean upperStrict, boolean alphaNumeric, BaseExtractionFn extractionFn) {
+        super(FILTER_TYPE, dimension, extractionFn);
+        this.lower = lower;
+        this.upper = upper;
+        this.lowerStrict = lowerStrict;
+        this.upperStrict = upperStrict;
+        this.alphaNumeric = alphaNumeric;
     }
 
     public String getLower() {

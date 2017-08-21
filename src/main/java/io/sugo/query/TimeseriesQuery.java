@@ -1,16 +1,13 @@
 package io.sugo.query;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.sugo.components.aggregation.base.BaseAggregation;
-import io.sugo.components.filter.Filter;
+import io.sugo.components.filter.base.BaseFilter;
 import io.sugo.components.postAggregation.base.BasePostAggregation;
-import io.sugo.query.base.BaseQuery;
 import io.sugo.query.base.CommonQuery;
-import io.sugo.query.member.Context;
-import io.sugo.components.aggregation.CountBaseAggregation;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,17 +16,17 @@ import java.util.Map;
  */
 public class TimeseriesQuery <T extends BaseAggregation, P extends BasePostAggregation> extends CommonQuery {
 	private static final String QUERY_TYPE = "lucene_timeseries";
-	private Filter filter;
-	private List<T> aggregations = new LinkedList();
-	private List<P> postAggregations = new LinkedList();
+	private BaseFilter filter;
+	private List<T> aggregations = new ArrayList<>();
+	private List<P> postAggregations = new ArrayList<>();
 
 
 	public TimeseriesQuery(){
 		super(QUERY_TYPE);
 	}
 
-	public TimeseriesQuery(String dataSource, String granularity, String intervals) {
-		super(QUERY_TYPE,dataSource,granularity,intervals,null);
+	public TimeseriesQuery(String dataSource, String granularity, String intervals,Map<String, Object> context) {
+		super(QUERY_TYPE,dataSource,intervals,granularity,context);
 	}
 
 
@@ -38,7 +35,7 @@ public class TimeseriesQuery <T extends BaseAggregation, P extends BasePostAggre
 						   String granularity,
 						   String intervals,
 						   Map<String, Object> context,
-						   Filter filter,
+						   BaseFilter filter,
 						   List<T> aggregations,
 						   List<P> postAggregations) {
 		super(QUERY_TYPE,dataSource,intervals,granularity,context);
@@ -64,18 +61,24 @@ public class TimeseriesQuery <T extends BaseAggregation, P extends BasePostAggre
 	}
 
 	public  void addAggregation(T t){
+		if(null == this.aggregations){
+			this.aggregations = new ArrayList<>();
+		}
 		this.aggregations.add(t);
 	}
 
 	public void addPostAggregation(P p){
+		if(null == this.postAggregations){
+			this.postAggregations = new ArrayList<>();
+		}
 		this.postAggregations.add(p);
 	}
 
-	public Filter getFilter() {
+	public BaseFilter getFilter() {
 		return filter;
 	}
 
-	public void setFilter(Filter filter) {
+	public void setFilter(BaseFilter filter) {
 		this.filter = filter;
 	}
 

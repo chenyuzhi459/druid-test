@@ -9,10 +9,10 @@ import java.util.Properties;
  * Created by qwe on 17-7-22.
  */
 public class Robot {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         int sum = 0;
         Properties props = new Properties();
-        props.load(new FileInputStream("data.properties"));
+        props.load(new FileInputStream("src/main/resources/data.properties"));
 
         DataCreator creator = new DataCreator();
         int numPerDay = Integer.parseInt(props.getProperty("numPerDay"));
@@ -22,17 +22,19 @@ public class Robot {
         File file = new File(props.getProperty("savePath"));
 
 
+
         if(!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
         if(!file.exists()) {
+            System.out.println("created...");
             file.createNewFile();
         }
 
 
         FileWriter fileWriter = new FileWriter(file);
 
-        DateTime start = new DateTime(2017,5,1,0,0);
+        DateTime start = new DateTime(2017,5,1,8,0);
         DateTime current;
 
         for(int j=0;j<numDay;j++) {

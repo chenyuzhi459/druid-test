@@ -1,24 +1,27 @@
 package io.sugo.components.filter;
 
+import io.sugo.components.filter.base.CommonFilter;
+import io.sugo.query.member.extractionFn.base.BaseExtractionFn;
+
 /**
  * Created by qwe on 17-7-28.
  */
-public class SeletorFilter implements Filter {
-    private String type = "selector";
-    private String dimension = "id";
-    private String value = "62c237e40c008cda8c221a4d1231f790";
+public class SeletorFilter extends CommonFilter{
+    private static final String FILTER_TYPE = "selector";
+    private String value;
+
+    public SeletorFilter() {
+        super(FILTER_TYPE);
+    }
 
     public SeletorFilter(String dimension,String value) {
-        this.dimension = dimension;
+        super(FILTER_TYPE, dimension);
         this.value = value;
     }
 
-    public String getDimension() {
-        return dimension;
-    }
-
-    public void setDimension(String dimension) {
-        this.dimension = dimension;
+    public SeletorFilter(String type, String dimension, String value, BaseExtractionFn extractionFn) {
+        super(type, dimension, extractionFn);
+        this.value = value;
     }
 
     public String getValue() {

@@ -2,7 +2,8 @@ package io.sugo.query.base;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.sugo.dataUtil.http.MyHttpConnection;
+import io.sugo.utils.http.MyHttpConnection;
+import org.apache.log4j.Logger;
 
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import java.util.Map;
  * Created by chenyuzhi on 17-8-4.
  */
 public class BaseQuery implements Query{
+	static Logger logger = Logger.getLogger(BaseQuery.class);
 	protected final String queryType;
 	protected String dataSource;
 	protected Map<String, Object> context;
@@ -53,7 +55,14 @@ public class BaseQuery implements Query{
 	}
 
 	@Override
-	public String query(String url) throws JsonProcessingException {
-		return MyHttpConnection.postData(url,jsonMapper.writeValueAsString(this));
+	public String query(String url)  {
+		String str = null;
+		try {
+			str =  MyHttpConnection.postData(url,jsonMapper.writeValueAsString(this));
+		} catch (JsonProcessingException e) {
+			logger.error("",e);
+			e.printStackTrace();
+		}
+		return str;
 	}
 }
